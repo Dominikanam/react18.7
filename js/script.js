@@ -28,10 +28,10 @@ var contacts = [
   var App = React.createClass({
 	render: function() {
 	  return (
-		React.createElement('div', {className: 'app'},
-		  React.createElement(ContactForm, {contact: contactForm}),
-		  React.createElement(Contacts, {items: contacts}, {})
-		)
+		<div className={'app'}>
+			<ContactForm contact={contactForm} />
+			<Contacts items={contacts} />
+		</div>
 	  );
 	}
   });
@@ -42,27 +42,17 @@ var contacts = [
 	},
 
 	render: function() {
-	  return (
-		React.createElement('form', {className: 'contactForm'},
-		  React.createElement('input', {
-			type: 'text',
-			placeholder: 'Name',
-			value: this.props.contact.firstName,
-		  }),
-		  React.createElement('input', {
-			type: 'text',
-			placeholder: 'Surname',
-			value: this.props.contact.lastName,
-		  }),
-		  React.createElement('input', {
-			type: 'email',
-			placeholder: 'E-mail',
-			value: this.props.contact.email,
-		  }),
-		  React.createElement('button', {type: 'submit'}, "Add contact")
-		)
-	  )
-	},
+		return (
+			<form className={'contactForm'}>
+				<input type={'text'} placeholder={'Name'} value={this.props.contact.firstName} />
+				<input type={'text'} placeholder={'Surname'} value={this.props.contact.lastName} />
+				<input type={'email'} placeholder={'E-mail'} value={this.props.contact.email} />
+				<button type={'submit'}>
+					Add contact
+				</button>
+			</form>
+		);
+	}
   })
 
   var Contacts = React.createClass({
@@ -72,11 +62,13 @@ var contacts = [
 
 	render: function() {
 	  var contacts = this.props.items.map(function(contact) {
-		  return React.createElement(Contact, {item: contact, key: contact.id});
+		  return <Contact item={contact} key={contact.id} />;
 	  });
 
 	  return (
-		React.createElement('ul', {className: 'contactsList'}, contacts)
+		  <ul className={'contactList'}>
+			{contacts}
+		  </ul>
 	  );
 	}
   });
@@ -87,19 +79,20 @@ var contacts = [
 	},
 
 	render: function() {
-	  return (
-		React.createElement('div', {className: 'contactItem'},
-		  React.createElement('img', {
-			className: 'contactImage',
-			src: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-128.png'
-		  }),
-		  React.createElement('p', {className: 'contactLabel'}, this.props.item.firstName),
-		  React.createElement('p', {className: 'contactLabel'}, this.props.item.lastName),
-		  React.createElement('a', {className: 'contactEmail', href: 'mailto:' +  this.props.item.email},
-			this.props.item.email
-		  )
+	  	return (
+		  <div className={'contactItem'}>
+			<img className={'contactImage'} src={'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-128.png'} />
+			<p className={'contactLabel'}>
+				{this.props.item.firstName}
+			</p>
+			<p className={'contactLabel'}>
+				{this.props.item.lastName}
+			</p>
+			<a className={'contactEmail'} href={'mailto:' + this.props.item.email}>
+				{this.props.item.email}
+			</a>
+		  </div>
 		)
-	  )
 	},
   });
 
